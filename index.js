@@ -4,8 +4,7 @@ require("./database/config").dbConnection();
 
 const express = require("express"),
   path = require("path"),
-  app = express(),
-  puerto = 3001;
+  app = express();
 
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -35,12 +34,12 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 
 users(app);
-
+var port = process.env.PORT || 3002;
 // Una vez definidas nuestras rutas podemos iniciar el servidor
-app.listen(puerto, (err) => {
+app.listen(port, (err) => {
   if (err) {
     console.error("Error escuchando: ", err);
     return;
   }
-  console.log(`Escuchando en el puerto :${puerto}`);
+  console.log(`Escuchando en el puerto :${port}`);
 });
