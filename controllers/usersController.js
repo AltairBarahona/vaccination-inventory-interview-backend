@@ -166,7 +166,7 @@ const UsersController = {
         vaccineType,
         dosesNumber,
       } = req.body;
-
+      //
       const userToUpdate = await Users.findOneAndUpdate(
         { _id: id },
         {
