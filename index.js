@@ -20,7 +20,6 @@ app.use((req, res, next) => {
 });
 const users = require("./routes/usersRoutes");
 
-app.use(cors(corsOptionsDelegate));
 app.use(express.json()); //Para parsear respuestas a json
 app.use(logger("dev"));
 app.use(bodyParser.json());
