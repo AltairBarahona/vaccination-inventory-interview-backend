@@ -11,24 +11,31 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const users = require("./routes/usersRoutes");
 
-const whitelist = [
-  "http://localhost:3000",
-  "http://localhost:80",
-  "http://localhost",
-];
+// const whitelist = [
+//   "http://localhost:3000",
+//   "http://localhost:80",
+//   "http://localhost",
+// ];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (!origin || whitelist.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true,
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
 app.use(express.json()); //Para parsear respuestas a json
 app.use(logger("dev"));
 app.use(bodyParser.json());
