@@ -11,10 +11,10 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 
 const allowlist = [
+  "vaccination-inventory-react-frontend.vercel.app",
   "http://localhost:3000",
   "http://localhost:80",
   "http://localhost",
-  "https://vaccination-inventory-react-frontend.vercel.app",
 ];
 
 var corsOptionsDelegate = function (req, callback) {
