@@ -15,7 +15,7 @@ const whitelist = [
   "http://localhost:3000",
   "http://localhost:80",
   "http://localhost",
-  "https://vaccination-inventory-react-frontend.vercel.app/",
+  "https://vaccination-inventory-react-frontend.vercel.app",
 ];
 
 const corsOptions = {
@@ -30,15 +30,14 @@ const corsOptions = {
 };
 
 app.use(function (req, res, next) {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://vaccination-inventory-react-frontend.vercel.app/"
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
   );
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   next();
 });
 app.use(cors(corsOptions));
-
 app.use(express.json()); //Para parsear respuestas a json
 app.use(logger("dev"));
 app.use(bodyParser.json());
