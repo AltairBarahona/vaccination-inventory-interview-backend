@@ -9,35 +9,26 @@ const express = require("express"),
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
-const users = require("./routes/usersRoutes");
 
-const whitelist = [
+const allowlist = [
   "http://localhost:3000",
   "http://localhost:80",
   "http://localhost",
   "https://vaccination-inventory-react-frontend.vercel.app",
 ];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (allowlist.indexOf(req.header("Origin")) !== -1) {
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false }; // disable CORS for this request
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options
 };
+const users = require("./routes/usersRoutes");
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
-app.use(cors(corsOptions));
+app.use(cors(corsOptionsDelegate));
 app.use(express.json()); //Para parsear respuestas a json
 app.use(logger("dev"));
 app.use(bodyParser.json());
