@@ -1,25 +1,16 @@
 const cors = require("cors");
 
 const UsersController = require("../controllers/usersController");
-const whitelist = [
-  "https://vaccination-inventory-react-frontend.vercel.app/",
-  "http://localhost:3000",
-  "http://localhost:80",
-  "http://localhost",
-];
 
 module.exports = (app, upload) => {
-  const corsOptions = {
-    origin: function (origin, callback) {
-      if (!origin || whitelist.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  };
-  app.use(cors(corsOptions));
+  app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+  });
 
   app.get("/api/users/getAllUsers", UsersController.getAllUsers);
   app.post("/api/users/login", UsersController.login);
