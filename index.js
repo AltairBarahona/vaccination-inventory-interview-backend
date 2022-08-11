@@ -11,7 +11,7 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 
 const allowlist = [
-  "vaccination-inventory-react-frontend.vercel.app",
+  "https://vaccination-inventory-react-frontend.vercel.app/",
   "http://localhost:3000",
   "http://localhost:80",
   "http://localhost",

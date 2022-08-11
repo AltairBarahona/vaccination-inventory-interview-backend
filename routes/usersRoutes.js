@@ -2,6 +2,7 @@ const cors = require("cors");
 
 const UsersController = require("../controllers/usersController");
 const whitelist = [
+  "https://vaccination-inventory-react-frontend.vercel.app/",
   "http://localhost:3000",
   "http://localhost:80",
   "http://localhost",
